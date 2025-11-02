@@ -56,7 +56,7 @@
         </div>
       </div>
 
-      <div class="hint">입력창에 단어 일부만 넣어도 검색됩니다. Enter로 검색 가능.</div>
+      <div class="hint">입력창에 단어 일부만 넣어도 검색됩니다. Enter는 무시됨.</div>
 
       <div id="results" class="results"></div>
 
@@ -109,7 +109,7 @@
       statusEl.textContent = `${sourceName} 로드됨 (항목 ${Object.keys(NORMALIZED_DICT).length}개)`;
       resultsEl.innerHTML = '';
       const firstNorm = Object.keys(NORMALIZED_DICT)[0];
-      render([{ key: KEY_MAP[firstNorm], val: NORMALIZED_DICT[firstNorm] }]);
+      if(firstNorm) render([{ key: KEY_MAP[firstNorm], val: NORMALIZED_DICT[firstNorm] }]);
     }
 
     function search(query){
@@ -168,8 +168,6 @@
     }
 
     btn.addEventListener('click', ()=>{ render(search(qEl.value)); });
-    qEl.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); btn.click(); } });
-    qEl.addEventListener('keyup', e=>{ if(e.key==='Enter'){ e.preventDefault(); btn.click(); } }); // 모바일용 보강
 
     fileInput.addEventListener('change', (ev)=>{
       const f = ev.target.files && ev.target.files[0];
